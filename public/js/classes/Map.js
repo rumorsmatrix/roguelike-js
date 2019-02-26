@@ -15,11 +15,12 @@ class Map {
 	}
 
 
+	// noinspection JSMethodCanBeStatic
 	construct_2d_array(width, height, default_value = null) {
-		var new_array = [];
-		for (var i=0; i< height; i++) {
+		let new_array = [];
+		for (let i=0; i< height; i++) {
 			new_array[i] = [];
-			for (var j=0; j< width; j++) {
+			for (let j=0; j< width; j++) {
 				new_array[i][j] = default_value;
 			}
 		}
@@ -28,30 +29,25 @@ class Map {
 
 
 	generate_dungeon() {
-		var rot_map = new ROT.Map.Digger(game.map_width, game.map_height);
+		let rot_map = new ROT.Map.Digger(game.map_width, game.map_height);
 		rot_map.create(function(x, y, value) {
 
-			var new_tile = null;
-			if (value == 0) {
+			let new_tile = null;
+			if (value === 0) {
 				new_tile = game.tile_library['floor'];
 			} else {
-				new_tile = ROT.RNG.getWeightedValue({
-					"wall": 70,
-					"wall2": 15,
-					"wall3": 15
-				});
-				new_tile = game.tile_library[new_tile];
+				new_tile = game.tile_library['wall'];
 			}
 			game.map.tile_map[x][y] = new_tile;
 
-			if (value == 0) game.map.empty_tile_list.push([x,y]);
+			if (value === 0) game.map.empty_tile_list.push([x,y]);
 		});
 
 		this.rooms = [];
-		var rooms = rot_map.getRooms();
-		for (var i=0; i<rooms.length; i++) {
+		let rooms = rot_map.getRooms();
+		for (let i=0; i<rooms.length; i++) {
 
-			var doors = [];
+			let doors = [];
 			rooms[i].getDoors(function(x, y) {
 
 				// TO DO
@@ -60,7 +56,7 @@ class Map {
 				// a flag to state if an actual door is present...
 				doors.push([x, y]);
 
-				var new_door_tile = ROT.RNG.getWeightedValue({
+				let new_door_tile = ROT.RNG.getWeightedValue({
 					"door_closed": 20,
 					"door_open": 30,
 					"floor": 70
@@ -95,49 +91,57 @@ class Map {
 		this.center_y = game.player.pos_y;
 
 		// Make sure the x-axis doesn't go to the left of the left bound
-		var topLeftX = Math.max(0, this.center_x - (game.display_width / 2));
+		let topLeftX = Math.max(0, this.center_x - (game.display_width / 2));
 
 		// Make sure we still have enough space to fit an entire game screen
 		topLeftX = Math.min(topLeftX, game.map_width - game.display_width);
 
 		// Make sure the y-axis doesn't above the top bound
-		var topLeftY = Math.max(0, this.center_y - (game.display_height / 2));
+		let topLeftY = Math.max(0, this.center_y - (game.display_height / 2));
 
 		// Make sure we still have enough space to fit an entire game screen
 		topLeftY = Math.min(topLeftY, game.map_height - game.display_height);
 
-		// Iterate through all visible map cells
-		for (var x = topLeftX; x < topLeftX + game.display_width; x++) {
-		    for (var y = topLeftY; y < topLeftY + game.display_height; y++) {
+		// Iterate through all map cells in the viewport
+		for (let x = topLeftX; x < topLeftX + game.display_width; x++) {
+		    for (let y = topLeftY; y < topLeftY + game.display_height; y++) {
 
 		    	// either blank out tiles we don't know about or show darkened
 		    	// versions for tiles in the "fog of war"
-		        var glyph = "";
-		        if (game.map.fow_map[x][y] == 1) {
-		        	glyph += "_" + game.map.tile_map[x][y].glyph;
+				let glyph = "";
+
+		        if (game.map.fow_map[x][y] === 1) {
+		        	glyph = game.map.tile_map[x][y].glyph;
 		        }
 
 	        	game.display.draw(
 	            	x - topLeftX,
-	            	y - topLeftY,
-	            	glyph
+		            y - topLeftY,
+		            glyph,
+					'#444', // todo: this is grey. It should be a darkened version of whatever the tile is?
+					'#000'
 		        );
 		    }
 		}
 
 
-		var fov = new ROT.FOV.PreciseShadowcasting(function(x, y) {
+		// todo: this fov creation/computation should be moved to an EYEBALLS mixin/component, I think ----
+		let fov = new ROT.FOV.PreciseShadowcasting(function(x, y) {
 			if (x > game.map_width-1 || y > game.map_height-1) return false;
 			if (x < 0 || y < 0) return false;
-
-			// console.log(game.map.tile_map[x][y].light_passes);
 			return (game.map.tile_map[x][y].light_passes);
 		});
 
-		fov.compute(game.player.pos_x, game.player.pos_y, 5, function(x, y, r, visibility) {
+		fov.compute(game.player.pos_x, game.player.pos_y, 8, function(x, y, r, visibility) {
 			if (visibility > 0) {
-				game.display.draw(x - topLeftX, y - topLeftY, game.map.tile_map[x][y].glyph);
-				game.map.fow_map[x][y] = 1;
+				game.display.draw(
+					x - topLeftX,
+					y - topLeftY,
+					game.map.tile_map[x][y].glyph,
+					game.map.tile_map[x][y].fg_color,
+					game.map.tile_map[x][y].bg_color,
+				);
+				game.map.fow_map[x][y] = 1; // mark this tile as "seen" in the FoW map
 			}
 		});
 
@@ -146,18 +150,11 @@ class Map {
 		game.display.draw(
 		    this.center_x - topLeftX,
 		    this.center_y - topLeftY,
-		    game.tile_library['player'].glyph
+		    game.tile_library['player'].glyph,
+			game.tile_library['player'].fg_color,
+			game.map.tile_map[game.player.pos_x][game.player.pos_y].bg_color
 		);
 	}
 
 }
 
-
-
-class Tile {
-	constructor(glyph, light_passes) {
-		this.glyph = glyph;
-		this.light_passes = light_passes;
-		this.passable = light_passes;
-	}
-}

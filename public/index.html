@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>untitled ROT.js project</title>
+	<link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet" type="text/css">
+	<link href="css/game.css" rel="stylesheet" type="text/css">
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="game_container">
+
+	<div id="subscreen_container">
+		<div id="subscreen_main_menu">
+			<p>
+				<u>Main menu</u><br>
+				<strong>n</strong>ew game<br>
+				<strong>l</strong>oad saved game<br>
+				<br>
+				visit the <strong>w</strong>ebsite<br>
+				follow me on <strong>t</strong>witter
+			</p>
+		</div>
+	</div>
+
+	<div id="header_container">
+		untitled dungeon crawling / ROT.js project
+	</div>
+
+	<div id="sidebar_container">
+
+		<p>
+			<u><span id="player_name"></span></u><br>
+			Health: 10/10<br>
+		</p>
+
+		<p>
+			<u>Inventory</u><br>
+			Hands: Sword, shield<br>
+			Body: Leather armour<br>
+			Gold: 20gp<br>
+		</p>
+
+		<p>
+			<u>Commands</u><br>
+			<strong>i</strong>nventory<br>
+			<strong>w</strong>ait<br>
+			<span id="commands_doors_open" class="hidden"><strong>o</strong>pen door<br></span>
+			<span id="commands_doors_close" class="hidden"><strong>c</strong>lose door<br></span>
+		</p>
+
+	</div>
+
+	<div id="map_container"></div>
+	<div id="log_container"></div>
+</div>
+
+
+<script src="js/classes/ROT.js"></script>
+<script src="js/classes/Log.js"></script>
+<script src="js/classes/Game.js"></script>
+<script src="js/classes/Tile.js"></script>
+<script src="js/data/tile_library.js"></script>
+<script src="js/data/grammar.js"></script>
+<script src="js/classes/Map.js"></script>
+<script src="js/classes/Entity.js"></script>
+<script>
+
+ROT.Display.Rect.cache = true;
+document.getElementById("map_container").appendChild(game.display.getContainer());
+
+game.map = new Map(game.map_width, game.map_height); // TODO: make this a maximum and allow variable dungeon sizes?
+game.map.generate_dungeon(); // TODO: variable dungeon size?
+game.player = new Player();
+
+// turn off key listener
+// window.removeEventListener("keydown", game.player);
+
+game.map.draw();
+
+</script>
+</body>
+</html>

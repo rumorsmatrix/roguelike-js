@@ -11,13 +11,13 @@ class Entity {
 		// TODO
 		// should this include diagonals even though you can't move diagonally??
 
-		var adjacent_tiles = [];
+		let adjacent_tiles = [];
 		for (let t of [
 			[0, -1], // n
 			[+1, 0], // e
 			[0, +1], // s
 			[-1, 0], // w
-		 ]) {
+		]) {
 			if (game.map.tile_map[this.pos_x + t[0]][this.pos_y + t[1]]) {
 				adjacent_tiles.push({
 					"offset_x": t[0],
@@ -35,12 +35,17 @@ class Entity {
 		// TODO
 		// move field-of-view calculation from the map to the entity, so that players and
 		// monsters/NPCs each have their own FOV
+		//
+		// ALSO: this shouldn't be on entity, it should be a mixin eg: has_vision; eyeballs
 
 	}
 
 
 	move(diff_x, diff_y) {
-		if (game.map.tile_map[this.pos_x + diff_x][this.pos_y + diff_y].passable == true) {
+
+		// todo: this should be a mixin: can_move or somesuch
+
+		if (game.map.tile_map[this.pos_x + diff_x][this.pos_y + diff_y].passable === true) {
 			this.pos_x += diff_x;
 			this.pos_y += diff_y;
 
@@ -82,11 +87,8 @@ class Player extends Entity {
 
 		// find which virtual key has been pressed
 		for (var key_name in ROT.KEYS) {
-			if (ROT.KEYS[key_name] == e.keyCode && key_name.indexOf("VK_") == 0) { var virtual_key = key_name; }
+			if (ROT.KEYS[key_name] === e.keyCode && key_name.indexOf("VK_") === 0) { var virtual_key = key_name; }
 		}
-
-
-		console.log(virtual_key);
 
 		// https://nethackwiki.com/wiki/Commands
 
@@ -131,12 +133,8 @@ class Player extends Entity {
 
 		}
 
-
-		console.log(movement_x + ", " + movement_y);
-
-
 		// handle movement
-		if (movement_x != 0 || movement_y != 0) {
+		if (movement_x !== 0 || movement_y !== 0) {
 			if (this.move(movement_x, movement_y)) {
 
 				// TODO
@@ -147,11 +145,11 @@ class Player extends Entity {
 
 				var adjacent_tiles = this.get_adjacent_tiles();
 				for (let t in adjacent_tiles) {
-					if (adjacent_tiles[t].tile.glyph == "+") {
+					if (adjacent_tiles[t].tile.glyph === "+") {
 						document.getElementById("commands_doors_open").classList.remove("hidden");
 					}
 
-					if (adjacent_tiles[t].tile.glyph == "-") {
+					if (adjacent_tiles[t].tile.glyph === "-") {
 						document.getElementById("commands_doors_close").classList.remove("hidden");
 					}
 
