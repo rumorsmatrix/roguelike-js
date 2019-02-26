@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Command example</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+    class Command {
+
+        constructor(executor, method_to_call = "", parameters = {})
+        {
+            this.executor = executor;
+            this.method_to_call = method_to_call;
+            this.parameters = parameters;
+        }
+
+        execute()
+        {
+            // ideally this method should be overwritten by the extending class
+            if (typeof this.executor[this.method_to_call] === 'function') {
+                this.executor[this.method_to_call](this.parameters);
+            }
+        }
+    }
+
+
+    class TalkCommand extends Command {
+
+        constructor(executor, message)
+        {
+            super(executor);
+            this.message = message;
+        }
+
+        execute()
+        {
+            if (typeof this.executor.talk === 'function') {
+                this.executor.talk(this.message);
+            }
+        }
+    }
+
+
+
+    class Thing {
+        constructor(my_name)
+        {
+            this.name = my_name;
+        }
+    }
+
+
+    let TalkMixin = {
+        talk(message)
+        {
+            console.log(this.name + " says " + message);
+        }
+    };
+
+
+    let dog = new Thing('Fido');
+    //Object.assign(dog, TalkMixin);
+
+    command = new TalkCommand(dog, "hello!");
+    command.execute();
+
+
+</script>
+
+</body>
+</html>

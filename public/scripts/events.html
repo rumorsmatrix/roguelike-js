@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Events test</title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+
+class Thing {
+
+    constructor(my_name) {
+        this.name = my_name;
+    }
+
+    handleEvent(e) {
+        console.log(this.name + " heard event:");
+        console.log(e);
+        console.log("====================");
+    }
+}
+
+
+let dog = new Thing('dog');
+let cat = new Thing('cat');
+
+let custom_event = new Event('custom_event');
+
+window.addEventListener("custom_event", dog);
+window.addEventListener("custom_event", cat);
+window.dispatchEvent(custom_event);
+
+
+</script>
+</body>
+</html>
