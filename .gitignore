@@ -1,4 +1,5 @@
 resources/*
 .DS_store
 .sass-cache/
+NOTES.md
 
