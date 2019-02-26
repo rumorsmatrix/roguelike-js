@@ -1,6 +1,8 @@
 class Player extends Entity {
 
     // todo: what does a "Player" object represent if the player is a Party of characters? Hmmm.
+    //  I think it's the "@" and it's location, and should have Characters attatched to it. It's basically the
+    //  party AND the characters all lumped in together...
 
     constructor()
     {
@@ -30,32 +32,41 @@ class Player extends Entity {
         let movement_y = 0;
 
         // find which virtual key has been pressed
+        // todo: e.keyCode is now deprecated
+        //  https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
+
+        console.log('Key/New: ' + e.key + ', keyCode/Deprecated: ' + e.keyCode);
+        //console.log(e);
+
         let virtual_key = "";
         for (let key_name in ROT.KEYS) {
-            if (ROT.KEYS.hasOwnProperty(key_name) && ROT.KEYS[key_name] === e.keyCode && key_name.indexOf("VK_") === 0) {
+            if (ROT.KEYS.hasOwnProperty(key_name) && ROT.KEYS[key_name] === e.key && key_name.indexOf("VK_") === 0) {
                 virtual_key = key_name;
                 break; // no need to keep looking now
             }
         }
 
-        // handle key press
-        // https://nethackwiki.com/wiki/Commands
+        // handle key press: https://nethackwiki.com/wiki/Commands
 
         switch (virtual_key) {
 
             case "VK_UP":
+            case "VK_ARROW_UP":
                 movement_y = -1;
                 break;
 
             case "VK_DOWN":
+            case "VK_ARROW_DOWN":
                 movement_y = +1;
                 break;
 
             case "VK_LEFT":
+            case "VK_ARROW_LEFT":
                 movement_x = -1;
                 break;
 
             case "VK_RIGHT":
+            case "VK_ARROW_RIGHT":
                 movement_x = +1;
                 break;
 

@@ -53,6 +53,7 @@
 
 
 <script src="js/classes/ROT.js"></script>
+<script src="js/data/ROTkeys.js"></script>
 <script src="js/classes/Log.js"></script>
 <script src="js/classes/Game.js"></script>
 <script src="js/classes/Tile.js"></script>
@@ -63,18 +64,16 @@
 <script src="js/classes/Player.js"></script>
 <script>
 
+// todo: move all this cruft into Game or Map or some new Init() thing or something...
 ROT.Display.Rect.cache = true;
 document.getElementById("map_container").appendChild(game.display.getContainer());
-
 game.map = new Map(game.map_width, game.map_height);
 game.map.generate_dungeon(); // TODO: variable dungeon size?
 game.player = new Player();
 game.map.draw();
 
-
 // turn off key listener
 // window.removeEventListener("keydown", game.player);
-
 
 </script>
 </body>

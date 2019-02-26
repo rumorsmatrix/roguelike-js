@@ -28,25 +28,26 @@ h1, h2, h3, strong, u {
 	margin: 1rem auto;
 	width: 800px;
 	height: 600px;
-	border: 1px solid #9bbc0f;
+	border: 1px solid #bbb;
+	box-shadow: 0 0 4px #000;
 }
 
 #header_container {
 	height: 24px;
-	background: #0f380f;
-	color: #9bbc0f;
+	background: #999;
+	color: #111;
 	line-height: 24px;
 	padding-left: 0.5rem;
-	border-bottom: 1px solid #9bbc0f;
+	border-bottom: 1px solid #bbb;
 }
 
 #log_container {
-	background: #000;
-	color: #306230;
+	background: #111;
+	color: #ddd;
 	font-size: 10px;
 	height: 98px;
 	margin: -3px 0 0;
-	border-top: 1px solid #9bbc0f;
+	border-top: 1px solid #bbb;
 	padding: 0.4rem 0.2rem 0.2rem;
 	overflow: auto;
 }
@@ -59,12 +60,12 @@ h1, h2, h3, strong, u {
 
 #sidebar_container {
 	float: right;
-	background: #306230;
+	background: #111;
 	width: 210px;
 	height: 476px;
-	border-left: 1px solid #9bbc0f;
+	border-left: 1px solid #bbb;
 	padding: 1rem 1rem 0 1rem;
-	color: #000;
+	color: #ddd;
 }
 
 #sidebar_container p, #subscreen_container p {
@@ -85,7 +86,7 @@ h1, h2, h3, strong, u {
 	z-index: 2;
 	background: #306230;
 	opacity: 0.95;
-	border: 2px solid #9bbc0f;
+	border: 2px solid #bbbf;
 	box-shadow: 0 0 32px #000;
 	padding: 32px;
 	color: #000;

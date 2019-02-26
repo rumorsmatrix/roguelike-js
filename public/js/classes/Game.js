@@ -1,6 +1,6 @@
 let game = {};
 
-// widths and heights need to be even numbers, or the FOV/FOW scrolling can break
+// display widths and heights need to be even numbers, or the FOV/FOW scrolling can break
 game.display_width = 42;
 game.display_height = 34;
 game.map_width = 60;
@@ -18,6 +18,3 @@ game.display = new ROT.Display({
     width: game.display_width,
     height: game.display_height
 });
-
-
-

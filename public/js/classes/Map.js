@@ -1,6 +1,7 @@
 class Map {
 
-	constructor(width, height) {
+	constructor(width, height)
+	{
 		this.width = width;
 		this.height = height;
 
@@ -16,7 +17,8 @@ class Map {
 
 
 	// noinspection JSMethodCanBeStatic
-	construct_2d_array(width, height, default_value = null) {
+	construct_2d_array(width, height, default_value = null)
+	{
 		let new_array = [];
 		for (let i=0; i< height; i++) {
 			new_array[i] = [];
@@ -28,7 +30,8 @@ class Map {
 	}
 
 
-	generate_dungeon() {
+	generate_dungeon()
+	{
 		let rot_map = new ROT.Map.Digger(game.map_width, game.map_height);
 		rot_map.create(function(x, y, value) {
 
@@ -79,13 +82,14 @@ class Map {
 	}
 
 
-	get_random_room() {
+	get_random_room()
+	{
 		return ROT.RNG.getItem(this.rooms);
 	}
 
 
-	draw() {
-
+	draw()
+	{
 		// center the "camera" on the player
 		this.center_x = game.player.pos_x;
 		this.center_y = game.player.pos_y;
@@ -114,6 +118,10 @@ class Map {
 		        	glyph = game.map.tile_map[x][y].glyph;
 		        }
 
+
+		        // todo: this method calls game.display.draw() in two places, perhaps it needs wrapping up,
+				//  either here or perhaps on the Tile (so Tiles can draw themselves?)
+
 	        	game.display.draw(
 	            	x - topLeftX,
 		            y - topLeftY,
@@ -123,7 +131,6 @@ class Map {
 		        );
 		    }
 		}
-
 
 		// todo: this fov creation/computation should be moved to an EYEBALLS mixin/component, I think ----
 		let fov = new ROT.FOV.PreciseShadowcasting(function(x, y) {
@@ -144,7 +151,6 @@ class Map {
 				game.map.fow_map[x][y] = 1; // mark this tile as "seen" in the FoW map
 			}
 		});
-
 
 		// Render the player
 		game.display.draw(
