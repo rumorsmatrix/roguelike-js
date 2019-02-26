@@ -21,9 +21,15 @@
   - I need a name for this thing, and an aesthetic (which is possibly... anime/JPGish)?
  
 
-## A manifesto
+## game loop
 
-First of all, I am going to work on this, and I am going to feel the loss of it when I don't get to. I am going to throw every system, idea and wish-list item of my own into it. I am going to make the roguelike-JRPG that I want to play, and I am going to play it myself. To that end, one of the first things I should implement is *persistence*, so games/characters can be saved and loaded. 
+  - game says it's the player's turn
+  - wait for input
+  - resolve input into commands
+  - add commands to queue
+  - process queue
+  - move onto next actor
+  
+...is the queue per-actor or a global one?
 
-No saving in dungeons. That makes it quicker and easier, but might be seen as lazy?
-
+I think it's global -- each command knows who issued it and who it's pointed at? But they should be broadcast...

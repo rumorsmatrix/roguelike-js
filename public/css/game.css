@@ -6,13 +6,18 @@ Gameboy classic color palette:
 	#9bbc0f lightest
 ---- */
 
+@font-face {
+	font-family: Metrickal;
+	src: url(../fonts/Metrickal-Regular.otf);
+}
+
 * {
 	box-sizing: border-box;
 }
 
 body {
 	background: #333;
-	font-family: "Fira Mono", monospace;
+	font-family: "Metrickal", serif;
 	font-size: 12px;
 	margin: auto;
 	color: #306230;

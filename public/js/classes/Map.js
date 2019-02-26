@@ -126,7 +126,7 @@ class Map {
 	            	x - topLeftX,
 		            y - topLeftY,
 		            glyph,
-					'#444', // todo: this is grey. It should be a darkened version of whatever the tile is?
+					'#222', // todo: this is grey. It should be a darkened version of whatever the tile is?
 					'#000'
 		        );
 		    }

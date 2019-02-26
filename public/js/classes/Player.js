@@ -25,13 +25,13 @@ class Player extends Entity {
 
     handleEvent(e)
     {
-
         if (e === undefined) return false;
 
         let movement_x = 0;
         let movement_y = 0;
 
         // find which virtual key has been pressed
+
         // todo: e.keyCode is now deprecated
         //  https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
 
@@ -96,6 +96,7 @@ class Player extends Entity {
         if (movement_x !== 0 || movement_y !== 0) {
             if (this.move(movement_x, movement_y)) {
 
+                /*
                 // TODO: refactor this so the classes and IDs are on the tile itself so I don't have to write them all out here
                 //  also move it to a function of it's own so it can be called on draw() or game init or something...
                 document.getElementById("commands_doors_open").classList.add("hidden");
@@ -112,6 +113,7 @@ class Player extends Entity {
                     }
 
                 }
+                */
 
             } else {
                 // TODO: Couldn't move, so we've (maybe) bumped something. Make a bump handler that works with get_adjacent_tiles

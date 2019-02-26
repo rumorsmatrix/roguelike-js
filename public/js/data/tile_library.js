@@ -1,5 +1,7 @@
 game.tile_library = {};
 
+// http://angband.oook.cz/stuff/manual.txt
+
 
 // actors -- players, monsters, etc
 game.tile_library['player']         = new Tile("@", '#fff', '', true);
