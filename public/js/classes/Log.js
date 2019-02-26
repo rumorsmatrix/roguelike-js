@@ -1,11 +1,13 @@
 class Log {
 
-	constructor(html_container) {
+	constructor(html_container)
+	{
 		this.container = document.getElementById(html_container);
 	}
 
 
-	write(str, css_class) {
+	write(str, css_class)
+	{
 		let new_p = document.createElement("p");
 		let node = document.createTextNode(str);
 		new_p.classList.add(css_class);
@@ -16,7 +18,8 @@ class Log {
 	}
 
 
-	clear() {
+	clear()
+	{
 		this.container.innerHTML = "";
 	}
 

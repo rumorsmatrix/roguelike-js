@@ -1,24 +1,24 @@
 game.grammar = {
 
-"female_names": [
+    "female_names": [
         "Adelaide", "Alma", "Barsaba", "Beatrix", "Bianca", "Cleopha",
         "Morgot", "Minerva", "Nerissa", "Odette", "Olga", "Orchid",
         "Clover", "Constance", "Damaris", "Daphne", "Demona", "Elsbeth",
         "Pepper", "Phoebe", "Piety", "Poppy", "Silence", "Sybil",
         "Esme", "Fern", "Hester", "Hippolyta", "Jessamine", "Jilly",
         "Trillby", "Tuesday", "Ursula", "Vivian", "Wendy", "Zora"
-],
+    ],
 
-"male_names": [
+    "male_names": [
         "Balthazar", "Basil", "Bertram", "Blaxton", "Chadwick", "Clovis",
         "Jules", "Leopold", "Merrick", "Mortimer", "Ogden", "Orion",
         "Destrian", "Ellis", "Erasmus", "Faustus", "Finn", "Fitzhugh",
         "Oswald", "Percival", "Peregrine", "Quentin", "Redmaine", "Reinhold",
         "Florian", "Fox", "Godwin", "Hannibal", "Jasper", "Jiles",
         "Silas", "Stilton", "Stratford", "Tenpiece", "Waverly", "Webster"
-],
+    ],
 
-"surnames": [
+    "surnames": [
         "Belvedere", "Bithesea", "Calaver", "Carvolo", "De Rippe", "Droll",
         "La Marque", "Malmora", "Miter", "Oblington", "Onymous", "Phillifent",
         "Dunlow", "Edevane", "Erelong", "Febland", "Fernsby", "Fisk",
@@ -31,6 +31,6 @@ game.grammar = {
         "Rumbold", "Rummage", "Sallow", "Saltmarsh", "Silverless", "Skitter",
         "Gimble", "Graveworm", "Greelish", "Hardwick", "Hatman", "Hovel",
         "Slee", "Slitherly", "Stoker", "Tarwater", "Tumbler", "Villin"
-],
+    ],
 
 };

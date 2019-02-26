@@ -4,9 +4,6 @@
 	<title>untitled ROT.js project</title>
 	<link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet" type="text/css">
 	<link href="css/game.css" rel="stylesheet" type="text/css">
-	<style>
-
-	</style>
 </head>
 <body>
 <div id="game_container">
@@ -29,7 +26,6 @@
 	</div>
 
 	<div id="sidebar_container">
-
 		<p>
 			<u><span id="player_name"></span></u><br>
 			Health: 10/10<br>
@@ -49,7 +45,6 @@
 			<span id="commands_doors_open" class="hidden"><strong>o</strong>pen door<br></span>
 			<span id="commands_doors_close" class="hidden"><strong>c</strong>lose door<br></span>
 		</p>
-
 	</div>
 
 	<div id="map_container"></div>
@@ -65,19 +60,21 @@
 <script src="js/data/grammar.js"></script>
 <script src="js/classes/Map.js"></script>
 <script src="js/classes/Entity.js"></script>
+<script src="js/classes/Player.js"></script>
 <script>
 
 ROT.Display.Rect.cache = true;
 document.getElementById("map_container").appendChild(game.display.getContainer());
 
-game.map = new Map(game.map_width, game.map_height); // TODO: make this a maximum and allow variable dungeon sizes?
+game.map = new Map(game.map_width, game.map_height);
 game.map.generate_dungeon(); // TODO: variable dungeon size?
 game.player = new Player();
+game.map.draw();
+
 
 // turn off key listener
 // window.removeEventListener("keydown", game.player);
 
-game.map.draw();
 
 </script>
 </body>
