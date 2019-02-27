@@ -30,47 +30,23 @@ class Entity {
 		return adjacent_tiles;
 	}
 
+	// todo: mixin registration
+	//  it's hard to actually remove a mixin without looking at the protoypes and doing horrible comparisons, so we'll
+	//  just keep a list and assume that we're not going to be dynamically adding/removing them very often at runtime...
 
-	move(diff_x, diff_y)
-    {
-
-		// todo: this should be a mixin: can_move or somesuch
-		if (game.map.tile_map[this.pos_x + diff_x][this.pos_y + diff_y].passable === true) {
-			this.pos_x += diff_x;
-			this.pos_y += diff_y;
-
-			// TODO: should only redraw if it's the player moving, or an entity moving within sight of the player
-			//  also, if it's an entity moving in sight, should probably have a timeout for a pause...
-			game.map.draw();
-			return true;
-
-		} else {
-			return false;
-		}
-	}
-
-}
-
-
-
-
-/*
-class Door extends Entity {
-
-	constructor()
-    {
-		super();
-	}
-
-}
-
-
-class Rat extends Entity {
-
-	constructor()
+	addMixin(mixin)
 	{
-		super();
+
 	}
 
+	removeMixin(mixin)
+	{
+
+	}
+
+	hasMixin(mixin)
+	{
+
+	}
+	
 }
-*/

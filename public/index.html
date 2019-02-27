@@ -28,9 +28,10 @@
 	<div id="sidebar_container">
 		<p>
 			<u><span id="player_name"></span></u><br>
-			Health: 10/10<br>
+			<!-- Health: 10/10<br> -->
 		</p>
 
+        <!--
 		<p>
 			<u>Inventory</u><br>
 			Hands: Sword, shield<br>
@@ -45,22 +46,38 @@
 			<span id="commands_doors_open" class="hidden"><strong>o</strong>pen door<br></span>
 			<span id="commands_doors_close" class="hidden"><strong>c</strong>lose door<br></span>
 		</p>
+		-->
+
+
 	</div>
 
 	<div id="map_container"></div>
 	<div id="log_container"></div>
 </div>
 
-
+<!-- ROTjs -->
 <script src="js/classes/ROT.js"></script>
 <script src="js/data/ROTkeys.js"></script>
+
+<!-- base game objects -->
 <script src="js/classes/Log.js"></script>
 <script src="js/classes/Game.js"></script>
+
+<!-- Command:Action design pattern -->
+<script src="js/classes/Action.js"></script>
+<script src="js/actions/MoveAction.js"></script>
+
+<!-- Tiles and maps -->
 <script src="js/classes/Tile.js"></script>
 <script src="js/data/tile_library.js"></script>
-<script src="js/data/grammar.js"></script>
 <script src="js/classes/Map.js"></script>
+
+<!-- procgen and data structures -->
+<script src="js/data/grammar.js"></script>
+
+<!-- Entities and component mixins -->
 <script src="js/classes/Entity.js"></script>
+<script src="js/mixins/MoveMixin.js"></script>
 <script src="js/classes/Player.js"></script>
 <script>
 

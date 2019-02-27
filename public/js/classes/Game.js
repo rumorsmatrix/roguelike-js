@@ -18,3 +18,5 @@ game.display = new ROT.Display({
     width: game.display_width,
     height: game.display_height
 });
+
+game.mixins = {};

@@ -7,10 +7,15 @@ class Player extends Entity {
     constructor()
     {
         super();
-        // todo: grab mixins here
-
         this.tile = game.tile_library['player'];
         this.name = ROT.RNG.getItem(game.grammar.male_names) + " " + ROT.RNG.getItem(game.grammar.surnames);
+
+        // assign mixins
+        Object.assign(this, game.mixins.Move);
+        //Object.assign(this, MoveMixin);
+
+
+        // update some UI
         document.getElementById("player_name").innerHTML = this.name;
 
         // pick a room to start in
@@ -18,6 +23,7 @@ class Player extends Entity {
         this.pos_x = this.start_room.center[0];
         this.pos_y = this.start_room.center[1];
 
+        // noinspection JSUnresolvedFunction (IDE is dumb)
         window.addEventListener("keydown", this);
         this.handleEvent();
     }
@@ -25,7 +31,25 @@ class Player extends Entity {
 
     handleEvent(e)
     {
-        if (e === undefined) return false;
+
+        // todo: or rather maybe do:
+        //  if (e.target === this.uid && typeof this[e.type] === 'function') this[e.type](e);
+        //  OR, if you skip the e.target check, you can respond to ALL events of a type, so monsters could eg: respond
+        //  to seeing their kin take damage, etc
+
+        if (e === undefined) {
+            return false;
+
+        } else if (e.type === "keydown") {
+            this.handleKeyEvent(e);
+
+        } else {
+            console.log(e);
+        }
+    }
+
+
+    handleKeyEvent(e) {
 
         let movement_x = 0;
         let movement_y = 0;
@@ -94,33 +118,11 @@ class Player extends Entity {
 
         // handle movement
         if (movement_x !== 0 || movement_y !== 0) {
-            if (this.move(movement_x, movement_y)) {
 
-                /*
-                // TODO: refactor this so the classes and IDs are on the tile itself so I don't have to write them all out here
-                //  also move it to a function of it's own so it can be called on draw() or game init or something...
-                document.getElementById("commands_doors_open").classList.add("hidden");
-                document.getElementById("commands_doors_close").classList.add("hidden");
+            let action = new MoveAction(this, movement_x, movement_y);
+            action.execute();
 
-                const adjacent_tiles = this.get_adjacent_tiles();
-                for (let t in adjacent_tiles) {
-                    if (adjacent_tiles[t].tile.glyph === "+") {
-                        document.getElementById("commands_doors_open").classList.remove("hidden");
-                    }
 
-                    if (adjacent_tiles[t].tile.glyph === "-") {
-                        document.getElementById("commands_doors_close").classList.remove("hidden");
-                    }
-
-                }
-                */
-
-            } else {
-                // TODO: Couldn't move, so we've (maybe) bumped something. Make a bump handler that works with get_adjacent_tiles
-                //  to work out a context-sensitive action; ie: open a closed door, etc
-                //  (it's also possible something else and un-bumpable stopped movement (trap, etc.) so be careful?
-                console.log('bump');
-            }
         }
 
     }
