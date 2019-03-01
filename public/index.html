@@ -31,6 +31,8 @@
 			<!-- Health: 10/10<br> -->
 		</p>
 
+		<div id="ascii_art_container"></div>
+
         <!--
 		<p>
 			<u>Inventory</u><br>
@@ -66,6 +68,8 @@
 <!-- Command:Action design pattern -->
 <script src="js/classes/Action.js"></script>
 <script src="js/actions/MoveAction.js"></script>
+<script src="js/actions/BumpAction.js"></script>
+<script src="js/actions/OpenDoorAction.js"></script>
 
 <!-- Tiles and maps -->
 <script src="js/classes/Tile.js"></script>
@@ -78,6 +82,7 @@
 <!-- Entities and component mixins -->
 <script src="js/classes/Entity.js"></script>
 <script src="js/mixins/MoveMixin.js"></script>
+<script src="js/mixins/CanUseDoorsMixin.js"></script>
 <script src="js/classes/Player.js"></script>
 <script>
 
@@ -91,6 +96,19 @@ game.map.draw();
 
 // turn off key listener
 // window.removeEventListener("keydown", game.player);
+
+
+fetch('ascii-art/skeleton.html').then(function(response) {
+	if(response.ok) {
+		return response.text();
+	}
+	throw new Error('Network response was not ok.');
+}).then(function(myHTML) {
+	document.getElementById('ascii_art_container').innerHTML = myHTML.toString();
+});
+
+
+
 
 </script>
 </body>

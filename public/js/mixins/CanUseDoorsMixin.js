@@ -1,11 +1,10 @@
-game.mixins.Move = {
+game.mixins.CanUseDoors = {
 
     // remember "this" in a Mixin context refers to the object this has been mixed into.
 
     onMoveAdd()
     {
-        this.pos_x = 0;
-        this.pos_y = 0;
+
     },
 
     onMoveRemove()
@@ -13,15 +12,16 @@ game.mixins.Move = {
 
     },
 
-    move(diff_x, diff_y) {
+    openDoor(x, y) {
 
-        if (game.map.tile_map[this.pos_x + diff_x][this.pos_y + diff_y].passable === true) {
-            this.pos_x += diff_x;
-            this.pos_y += diff_y;
+        if (game.map.tile_map[x][y].glyph === "+") {
 
+            game.map.tile_map[x][y] = game.tile_library['door_open'];
             if (this.constructor.name === 'Player') {
-                game.map.draw();
+                game.log.write("You open the door.");
             }
+
+            game.map.draw();
             return true;
 
         } else {

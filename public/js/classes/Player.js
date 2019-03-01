@@ -11,9 +11,8 @@ class Player extends Entity {
         this.name = ROT.RNG.getItem(game.grammar.male_names) + " " + ROT.RNG.getItem(game.grammar.surnames);
 
         // assign mixins
-        Object.assign(this, game.mixins.Move);
-        //Object.assign(this, MoveMixin);
-
+        this.addMixin('Move');
+        this.addMixin('CanUseDoors');
 
         // update some UI
         document.getElementById("player_name").innerHTML = this.name;
@@ -51,6 +50,7 @@ class Player extends Entity {
 
     handleKeyEvent(e) {
 
+        let action = false;
         let movement_x = 0;
         let movement_y = 0;
 
@@ -59,7 +59,7 @@ class Player extends Entity {
         // todo: e.keyCode is now deprecated
         //  https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
 
-        console.log('Key/New: ' + e.key + ', keyCode/Deprecated: ' + e.keyCode);
+        //console.log('Key/New: ' + e.key + ', keyCode/Deprecated: ' + e.keyCode);
         //console.log(e);
 
         let virtual_key = "";
@@ -71,7 +71,6 @@ class Player extends Entity {
         }
 
         // handle key press: https://nethackwiki.com/wiki/Commands
-
         switch (virtual_key) {
 
             case "VK_UP":
@@ -113,17 +112,19 @@ class Player extends Entity {
             case "VK_C":
                 game.log.write("You try to close the door but, like, you can't even.");
                 break;
-
         }
 
         // handle movement
         if (movement_x !== 0 || movement_y !== 0) {
-
-            let action = new MoveAction(this, movement_x, movement_y);
-            action.execute();
-
-
+            // noinspection JSValidateTypes -- deliberately toggling between Action object and Boolean
+            action = new MoveAction(this, movement_x, movement_y);
         }
 
+        // execute actions until they aren't an Action object
+        while (typeof action === 'object') {
+            action = action.execute();
+        }
+
+        return action; // should be a Boolean by now...
     }
 }
