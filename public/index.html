@@ -84,6 +84,7 @@
 <script src="js/mixins/MoveMixin.js"></script>
 <script src="js/mixins/CanUseDoorsMixin.js"></script>
 <script src="js/classes/Player.js"></script>
+<script src="js/classes/NPC.js"></script>
 <script>
 
 // todo: move all this cruft into Game or Map or some new Init() thing or something...
@@ -91,11 +92,10 @@ ROT.Display.Rect.cache = true;
 document.getElementById("map_container").appendChild(game.display.getContainer());
 game.map = new Map(game.map_width, game.map_height);
 game.map.generate_dungeon(); // TODO: variable dungeon size?
+
 game.player = new Player();
 game.map.draw();
-
-// turn off key listener
-// window.removeEventListener("keydown", game.player);
+game.engine.start();
 
 
 fetch('ascii-art/skeleton.html').then(function(response) {

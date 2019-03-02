@@ -3,9 +3,15 @@ class Entity {
 	constructor()
     {
 		this.mixins = {};
+		this.speed = 1; // must have a speed for the scheduler
 	}
 
-	get_adjacent_tiles()
+	getSpeed()
+	{
+		return this.speed;
+	}
+
+	getAdjacentTiles()
     {
 		let adjacent_tiles = [];
 		for (let t of [

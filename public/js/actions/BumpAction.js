@@ -23,8 +23,7 @@ class BumpAction extends Action {
                 break;
         }
 
-
-        return true;
+        return false;
 
     }
 

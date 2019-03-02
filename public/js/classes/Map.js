@@ -11,6 +11,8 @@ class Map {
 		this.tile_map = this.construct_2d_array(width, height, 0);
 		this.fow_map = this.construct_2d_array(width, height, 0);
 		this.empty_tile_list = [];
+
+		this.entity_list = [];
 		this.entity_map = this.construct_2d_array(width, height);
 
 	}
@@ -77,8 +79,39 @@ class Map {
 				"left": rooms[i].getLeft(),
 				"doors": doors,
 			});
-
 		}
+
+
+		// add entities to the map
+		let rat = new NPC();
+		let position = ROT.RNG.getItem(this.empty_tile_list);
+
+		rat.tile = game.tile_library['rat'];
+		rat.pos_x = position[0];
+		rat.pos_y = position[1];
+		this.entity_map[rat.pos_x][rat.pos_y] = rat;
+		this.entity_list.push(rat);
+
+
+		// add entities to the turn scheduler -- remember this doesn't add the player!
+		game.scheduler.clear();
+		for (let i = 0; i < this.entity_list.length; i++) {
+			game.scheduler.add(this.entity_list[i], true);
+		}
+
+	}
+
+
+	getTile(x, y)
+	{
+		let tile = this.tile_map[x][y];
+		let bg_color = tile.bg_color;
+		let entity = this.entity_map[x][y];
+		if (entity !== null) {
+			tile = entity.tile;
+			tile.bg_color = bg_color;
+		}
+		return tile;
 	}
 
 
@@ -132,27 +165,49 @@ class Map {
 		    }
 		}
 
+		// calculate tiles in field-of-view
 		// todo: this fov creation/computation should be moved to an EYEBALLS mixin/component, I think ----
 		let fov = new ROT.FOV.PreciseShadowcasting(function(x, y) {
 			if (x > game.map_width-1 || y > game.map_height-1) return false;
 			if (x < 0 || y < 0) return false;
-			return (game.map.tile_map[x][y].light_passes);
+
+			// let tile = game.map.tile_map[x][y];
+			// if (game.map.entity_map[x][y] !== null) {
+			// 	tile = game.map.entity_map[x][y].tile;
+			// }
+
+			return (game.map.getTile(x, y).light_passes);
 		});
 
 		fov.compute(game.player.pos_x, game.player.pos_y, 8, function(x, y, r, visibility) {
 			if (visibility > 0) {
+
+				// pull tile details for this location
+				// let glyph = game.map.tile_map[x][y].glyph;
+				// let fg_color = game.map.tile_map[x][y].fg_color;
+				// let bg_color = game.map.tile_map[x][y].bg_color;
+				//
+				// // check if there's an entity in this location and overwrite if needed
+				// if (game.map.entity_map[x][y] !== null) {
+				// 	glyph = game.map.entity_map[x][y].tile.glyph;
+				// 	fg_color = game.map.entity_map[x][y].tile.fg_color;
+				// }
+
+				let tile = game.map.getTile(x, y);
+
+				// draw the resulting tile
 				game.display.draw(
 					x - topLeftX,
 					y - topLeftY,
-					game.map.tile_map[x][y].glyph,
-					game.map.tile_map[x][y].fg_color,
-					game.map.tile_map[x][y].bg_color,
+					tile.glyph,
+					tile.fg_color,
+					tile.bg_color,
 				);
 				game.map.fow_map[x][y] = 1; // mark this tile as "seen" in the FoW map
 			}
 		});
 
-		// Render the player
+		// render the player
 		game.display.draw(
 		    this.center_x - topLeftX,
 		    this.center_y - topLeftY,
@@ -160,7 +215,7 @@ class Map {
 			game.tile_library['player'].fg_color,
 			game.map.tile_map[game.player.pos_x][game.player.pos_y].bg_color
 		);
-	}
 
+	}
 }
 

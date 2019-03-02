@@ -13,22 +13,27 @@ game.mixins.Move = {
 
     },
 
-    move(diff_x, diff_y) {
+    move(diff_x, diff_y)
+    {
+        if (game.map.getTile(this.pos_x + diff_x, this.pos_y + diff_y).passable === true) {
 
-        if (game.map.tile_map[this.pos_x + diff_x][this.pos_y + diff_y].passable === true) {
+            let old_x = this.pos_x;
+            let old_y = this.pos_y;
             this.pos_x += diff_x;
             this.pos_y += diff_y;
 
-            if (this.constructor.name === 'Player') {
-                game.map.draw();
-            }
+            // update entity map with new position
+            game.map.entity_map[old_x][old_y] = null;
+            game.map.entity_map[this.pos_x][this.pos_y] = this;
+
+            game.map.draw();
             return true;
 
         } else {
             return false;
         }
-
     }
+
 
 };
 

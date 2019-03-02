@@ -8,6 +8,7 @@ class Player extends Entity {
     {
         super();
         this.tile = game.tile_library['player'];
+        this.speed = 1;
         this.name = ROT.RNG.getItem(game.grammar.male_names) + " " + ROT.RNG.getItem(game.grammar.surnames);
 
         // assign mixins
@@ -22,10 +23,20 @@ class Player extends Entity {
         this.pos_x = this.start_room.center[0];
         this.pos_y = this.start_room.center[1];
 
-        // noinspection JSUnresolvedFunction (IDE is dumb)
-        window.addEventListener("keydown", this);
+        // add to entity list and scheduler
+        game.map.entity_list.push(this);
+        game.scheduler.add(this, true);
+
         this.handleEvent();
     }
+
+    act()
+    {
+        console.log("Game turn for player");
+        game.engine.lock();
+        window.addEventListener("keydown", this);
+    }
+
 
 
     handleEvent(e)
@@ -49,7 +60,7 @@ class Player extends Entity {
 
 
     handleKeyEvent(e) {
-
+        window.removeEventListener("keydown", this);
         let action = false;
         let movement_x = 0;
         let movement_y = 0;
@@ -94,7 +105,7 @@ class Player extends Entity {
                 break;
 
             case "VK_A":
-                console.log( this.get_adjacent_tiles() );
+                console.log( this.getAdjacentTiles() );
                 break;
 
             case "VK_W":
@@ -125,6 +136,12 @@ class Player extends Entity {
             action = action.execute();
         }
 
-        return action; // should be a Boolean by now...
+        // move onto the next scheduled turn if our action is true
+        if (action === true) {
+            window.removeEventListener("keydown", this);
+            game.engine.unlock();
+        } else {
+            window.addEventListener("keydown", this);
+        }
     }
 }
