@@ -11,6 +11,17 @@ class Entity {
 		return this.speed;
 	}
 
+
+	resolveAction(action)
+	{
+		// execute actions until there aren't any Action objects left
+		while (typeof action === 'object') {
+			action = action.execute();
+		}
+		return action;
+	}
+
+
 	getAdjacentTiles()
     {
 		let adjacent_tiles = [];
@@ -59,7 +70,7 @@ class Entity {
 
 	hasMixin(mixin)
 	{
-		return !(this.mixins[mixin] === 'undefined' || this.mixins[mixin] === false);
+		return !(this.mixins[mixin] === undefined || this.mixins[mixin] === false);
 	}
 
 }

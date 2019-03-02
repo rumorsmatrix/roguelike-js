@@ -32,12 +32,9 @@ class Player extends Entity {
 
     act()
     {
-        console.log("Game turn for player");
         game.engine.lock();
         window.addEventListener("keydown", this);
     }
-
-
 
     handleEvent(e)
     {
@@ -57,7 +54,6 @@ class Player extends Entity {
             console.log(e);
         }
     }
-
 
     handleKeyEvent(e) {
         window.removeEventListener("keydown", this);
@@ -110,6 +106,7 @@ class Player extends Entity {
 
             case "VK_W":
                 game.log.write("You wait a moment.");
+                action = true;
                 break;
 
             case "VK_I":
@@ -131,13 +128,11 @@ class Player extends Entity {
             action = new MoveAction(this, movement_x, movement_y);
         }
 
-        // execute actions until they aren't an Action object
-        while (typeof action === 'object') {
-            action = action.execute();
-        }
 
         // move onto the next scheduled turn if our action is true
-        if (action === true) {
+        let result = this.resolveAction(action);
+
+        if (result === true) {
             window.removeEventListener("keydown", this);
             game.engine.unlock();
         } else {

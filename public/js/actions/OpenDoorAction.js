@@ -11,11 +11,14 @@ class OpenDoorAction extends Action {
 
     execute()
     {
-        if (this.actor.hasMixin('CanUseDoors')) {
+
+        console.log(this.actor.name);
+
+        if (this.actor.hasMixin('CanUseDoors') === true) {
             return this.actor.openDoor(this.x, this.y);
 
         } else {
-            // actor does not have the MoveMixin
+            // actor does not have the CanUseDoorsMixin
             return false;
         }
 

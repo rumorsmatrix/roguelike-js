@@ -64,10 +64,9 @@ class Map {
 				let new_door_tile = ROT.RNG.getWeightedValue({
 					"door_closed": 20,
 					"door_open": 30,
-					"floor": 70
+					"floor": 50
 				});
 				game.map.tile_map[x][y] = game.tile_library[new_door_tile];
-
 
 			});
 
@@ -83,15 +82,17 @@ class Map {
 
 
 		// add entities to the map
-		let rat = new NPC();
-		let position = ROT.RNG.getItem(this.empty_tile_list);
 
-		rat.tile = game.tile_library['rat'];
-		rat.pos_x = position[0];
-		rat.pos_y = position[1];
-		this.entity_map[rat.pos_x][rat.pos_y] = rat;
-		this.entity_list.push(rat);
-
+		for (let r = 0; r < 15; r++) {
+			let rat = new NPC();
+			let position = ROT.RNG.getItem(this.empty_tile_list);
+			rat.name = "Rat " + r.toString();
+			rat.tile = game.tile_library['rat'];
+			rat.pos_x = position[0];
+			rat.pos_y = position[1];
+			this.entity_map[rat.pos_x][rat.pos_y] = rat;
+			this.entity_list.push(rat);
+		}
 
 		// add entities to the turn scheduler -- remember this doesn't add the player!
 		game.scheduler.clear();

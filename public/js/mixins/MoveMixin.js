@@ -17,6 +17,8 @@ game.mixins.Move = {
     {
         if (game.map.getTile(this.pos_x + diff_x, this.pos_y + diff_y).passable === true) {
 
+            // todo: remember that moving off your PathfinderMixin path will invalidate it!
+
             let old_x = this.pos_x;
             let old_y = this.pos_y;
             this.pos_x += diff_x;
