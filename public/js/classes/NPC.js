@@ -27,6 +27,11 @@ class NPC extends Entity {
                 // pick a new destination
                 let target = ROT.RNG.getItem(game.map.empty_tile_list);
                 this.generatePath(target[0], target[1]);
+
+                if (ROT.RNG.getUniform() > 0.99) {
+                    game.log.write('&lt;<span style="color:red">r</span>at&gt; &quot;sqeak, squeak&quot;');
+                }
+
             }
 
             if (this.path.length > 0) {

@@ -16,21 +16,21 @@ Gameboy classic color palette:
 }
 
 body {
-	background: #333;
+	background: #bbb;
 	font-family: "Metrickal", serif;
 	font-size: 12px;
 	margin: auto;
 	color: #306230;
 }
 
-h1, h2, h3, strong, u {
+h1, h2, h3, strong, u, a {
 	font-size: 12px;
 	color: #9bbc0f;
 }
 
 #game_container {
 	background: #222;
-	margin: 1rem auto;
+	margin: 2rem auto;
 	width: 900px;
 	height: 600px;
 	border: 1px solid #bbb;
@@ -84,27 +84,54 @@ h1, h2, h3, strong, u {
 }
 
 #subscreen_container {
-	width: 660px;
-	height: 480px;
+	width: 898px;
+	height: 573px;
 	position: absolute;
-	margin: 64px;
+	margin-top: 25px;
 	z-index: 2;
-	background: #306230;
+	background: #222;
 	opacity: 0.95;
-	border: 2px solid #bbbf;
-	box-shadow: 0 0 32px #000;
 	padding: 32px;
-	color: #000;
+	color: #999;
 	visibility: hidden;
 }
+
+#subscreen_about {
+	visibility: hidden;
+}
+
+#subscreen_about_content{
+	width: 20rem;
+	height: 511px;
+	position: absolute;
+	padding: 1.2rem 1rem;
+	z-index: 3;
+	background: #000;
+	opacity: 0.9;
+}
+
 
 .hidden {
 	display: none;
 }
 
 .ascii_art {
-	margin: 10px 0 0 10px;
+	margin: 0px 0 0 0px;
 	width: 210px;
-	font-size: 7px;
+	font-size: 8px;
+	letter-spacing: 3px;
+	line-height: 12px;
 	cursor: default;
+}
+
+
+#rumorsmatrix_ascii_art_container {
+	width: 898px;
+	height: 573px;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 22px !important;
+	background: #000;
 }

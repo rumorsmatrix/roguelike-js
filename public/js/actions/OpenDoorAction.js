@@ -11,9 +11,6 @@ class OpenDoorAction extends Action {
 
     execute()
     {
-
-        console.log(this.actor.name);
-
         if (this.actor.hasMixin('CanUseDoors') === true) {
             return this.actor.openDoor(this.x, this.y);
 
@@ -21,7 +18,6 @@ class OpenDoorAction extends Action {
             // actor does not have the CanUseDoorsMixin
             return false;
         }
-
     }
 
 

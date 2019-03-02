@@ -9,9 +9,8 @@ class Log {
 	write(str, css_class)
 	{
 		let new_p = document.createElement("p");
-		let node = document.createTextNode(str);
+		new_p.innerHTML = str;
 		new_p.classList.add(css_class);
-		new_p.appendChild(node);
 
 		this.container.appendChild(new_p);
 		this.container.scrollTop = this.container.scrollHeight;

@@ -10,17 +10,32 @@
 <div id="game_container">
 
 	<div id="subscreen_container">
-		<div id="subscreen_main_menu">
-			<p>
-				<u>Main menu</u><br>
-				<strong>n</strong>ew game<br>
-				<strong>l</strong>oad saved game<br>
-				<br>
-				visit the <strong>w</strong>ebsite<br>
-				follow me on <strong>t</strong>witter
-			</p>
+		<div id="subscreen_about">
+
+			<div id="rumorsmatrix_ascii_art_container" class="ascii_art"></div>
+			<div id="subscreen_about_content">
+
+				<p><strong>About</strong></p>
+				<p>
+					roguelike-js, by Phil Cooper<br>
+					Uses <strong>r</strong>ot.js, by Ondrej Zara
+				</p>
+				<p>
+					<strong>t</strong>witter &nbsp;&nbsp;@rumorsmatrix<br>
+					<strong>w</strong>ebsite &nbsp;&nbsp;rumorsmatrix.com<br>
+					<!-- <strong>g</strong>ithub &nbsp;&nbsp;&nbsp;rumorsmatrix/roguelike-js -->
+				</p>
+
+				<p>
+					<strong><strong>esc</strong></strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit
+				</p>
+
+			</div>
+
 		</div>
 	</div>
+
+
 
 	<div id="header_container">
 		untitled dungeon crawling / ROT.js project
@@ -29,6 +44,8 @@
 	<div id="sidebar_container">
 		<p>
 			<u><span id="player_name"></span></u><br>
+			Health: <span style="color:red;">#########-</span><br>
+			&nbsp;&nbsp;Mana: <span style="color:blue;">##########</span>
 			<!-- Health: 10/10<br> -->
 		</p>
 
@@ -38,24 +55,11 @@
 		</p>
 
 
-		<div id="ascii_art_container"></div>
-
-        <!--
-		<p>
-			<u>Inventory</u><br>
-			Hands: Sword, shield<br>
-			Body: Leather armour<br>
-			Gold: 20gp<br>
-		</p>
+		<div id="ascii_art_container" class="ascii_art"></div>
 
 		<p>
-			<u>Commands</u><br>
-			<strong>i</strong>nventory<br>
-			<strong>w</strong>ait<br>
-			<span id="commands_doors_open" class="hidden"><strong>o</strong>pen door<br></span>
-			<span id="commands_doors_close" class="hidden"><strong>c</strong>lose door<br></span>
+			<a href="http://ondras.github.io/rot.js/manual/#intro" target="_blank">ROT.js manual</a>
 		</p>
-		-->
 
 
 	</div>
@@ -103,19 +107,34 @@ game.map.generate_dungeon(); // TODO: variable dungeon size?
 
 game.player = new Player();
 game.map.draw();
+
 game.engine.start();
+//document.getElementById('subscreen_about').style.visibility = 'visible';
+
+//document.getElementById('subscreen_container').style.visibility = 'visible';
 
 
-fetch('ascii-art/skeleton.html').then(function(response) {
+
+
+
+// fetch('ascii-art/skeleton.html').then(function(response) {
+// 	if(response.ok) {
+// 		return response.text();
+// 	}
+// 	throw new Error('Network response was not ok.');
+// }).then(function(myHTML) {
+// 	document.getElementById('ascii_art_container').innerHTML = myHTML.toString();
+// });
+
+
+fetch('ascii-art/rumorsmatrix.html').then(function(response) {
 	if(response.ok) {
 		return response.text();
 	}
 	throw new Error('Network response was not ok.');
 }).then(function(myHTML) {
-	document.getElementById('ascii_art_container').innerHTML = myHTML.toString();
+	document.getElementById('rumorsmatrix_ascii_art_container').innerHTML = myHTML.toString();
 });
-
-
 
 
 </script>

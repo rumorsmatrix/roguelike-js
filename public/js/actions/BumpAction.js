@@ -18,7 +18,6 @@ class BumpAction extends Action {
 
             // bumped into a closed door
             case "+":
-                console.log("bumped: closed door");
                 return new OpenDoorAction(this.actor, this.x, this.y);
                 break;
         }
