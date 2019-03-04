@@ -67,6 +67,7 @@ class Map {
 					"floor": 50
 				});
 				game.map.tile_map[x][y] = game.tile_library[new_door_tile];
+				game.map.removeTileFromEmptyList(x, y);
 
 			});
 
@@ -81,8 +82,14 @@ class Map {
 		}
 
 
-		// add entities to the map
+		// add items, pickups etc
+		for (let i = 0; i < 20; i++) {
+			let pos = ROT.RNG.getItem(this.empty_tile_list);
+			this.entity_map[pos[0]][pos[1]] = { tile: game.tile_library['coin'], amount: ROT.RNG.getItem([1,1,1,2,2,3]) };
+		}
 
+
+		// add entities to the map
 		for (let r = 0; r < 15; r++) {
 			let rat = new NPC();
 			let position = ROT.RNG.getItem(this.empty_tile_list);
@@ -108,11 +115,23 @@ class Map {
 		let tile = this.tile_map[x][y];
 		let bg_color = tile.bg_color;
 		let entity = this.entity_map[x][y];
+		tile.entity = entity;
 		if (entity !== null) {
 			tile = entity.tile;
 			tile.bg_color = bg_color;
 		}
 		return tile;
+	}
+
+	removeTileFromEmptyList(x, y)
+	{
+		for (let i=0; i<this.empty_tile_list.length; i++) {
+			if (this.empty_tile_list[i][0] === x && this.empty_tile_list[i][1] === y) {
+				this.empty_tile_list.splice(i, 1);
+				return true;
+			}
+		}
+		return false;
 	}
 
 

@@ -20,6 +20,9 @@ class BumpAction extends Action {
             case "+":
                 return new OpenDoorAction(this.actor, this.x, this.y);
                 break;
+
+            case "$":
+                // todo: rewrite coin pickup to be a type of bump, for consistency
         }
 
         return false;

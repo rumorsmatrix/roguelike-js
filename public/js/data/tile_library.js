@@ -17,3 +17,6 @@ game.tile_library['wall']           = new Tile("#", '#666', '#111',false, false)
 game.tile_library['door_closed']    = new Tile("+", '#bbb', '#111',false, false);
 game.tile_library['door_open']      = new Tile("-", '#bbb', '#111',true, true);
 
+// items and pickups
+game.tile_library['coin']           = new Tile("$", "#FFD700", '', true, true);
+

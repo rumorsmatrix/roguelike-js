@@ -1,0 +1,53 @@
+CRYSTAL STATUS CHANGELOG
+----------------------------------------------------------------------------------------------------
+
+KEY to VARIOUS SYMBOLOGIES and MYSTERIOUS MARKS
+[!] New or important features, content
+[+] Changes to existing features or content
+[-] Code tweaks, bug fixes, miscellany
+[?] Arcane and unsolved puzzles, disturbed thoughts
+
+A NOTE on VERSIONING and DATES
+CRYSTAL STATUS is an on-going, living project and as such code and content is not so much released
+as birthed screaming. There are no version numbers; just dates, which are presented in the ISO 8601 
+format: yyyy-mm-dd. Maybe one day there will be version numbers. For now consider this 0.x.x-dev
+
+
+
+## r/roguelikedev Sharing Satuday posts
+----------------------------------------------------------------------------------------------------
+[2019-03-02] https://www.reddit.com/r/roguelikedev/comments/awbi3e/sharing_saturday_248/ehmq2o8/
+
+
+
+## TO DO / COMING SOON (probably)
+----------------------------------------------------------------------------------------------------
+
+
+
+## Week commencing 2019-03-04
+----------------------------------------------------------------------------------------------------
+
+
+
+## Week commencing 2019-02-25
+----------------------------------------------------------------------------------------------------
+https://www.reddit.com/r/roguelikedev/comments/awbi3e/sharing_saturday_248/ehmq2o8/
+
+[!] Tentatively picked the name CRYSTAL STATUS, for reasons that may become apparent eventually
+[!] Started this CHANGELOG, because friends don't let friends use commit messages as a changelog
+[!] NPC class, and therefore: rats! Rats! Rats everywhere! They're dumb as rocks, but they exist.
+[!] Player can open doors and pick up coins. The rats can do neither.
+[!] Title screen, about screen: pretty, but useless. Basically a proof-of-concept right now.
+[+] Decided: using a Command design pattern with JS mixins as a ECS "component" substitute
+[+] Command pattern: Action class and MoveAction, BumpAction, OpenDoorAction, PickupCoinAction
+[+] Mixins for the above actions and corrisponding add|remove|hasMixin methods on Entities
+[+] Implemented Engine and Scheduler from ROT.js
+[+] Player can now open doors
+[+] Pathfinder mixin as a wrapper/enabler of A* pathfinding for Entities 
+[+] Coins are scattered around the map, which the player can pick up by stepping on them
+[+] Added UIStateManager to switch views and keybindings based on UI state
+[-] Refactored a bunch of stuff in a bunch of places
+[-] Many, many CSS tweaks
+[-] Experiments with pre-generated ASCII art 
+

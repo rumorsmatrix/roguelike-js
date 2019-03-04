@@ -42,7 +42,6 @@ class NPC extends Entity {
 
                 if (dx > 1 || dx < -1 || dy > 1 || dy < -1) {
                     // the path has become invalid (probably due to bumping) so throw it away
-                    // todo: invalidating a path here causes a wasted turn
                     this.path = [];
 
                 } else {
@@ -56,9 +55,13 @@ class NPC extends Entity {
 
         // resolve the action our little AI brain has decided on
         let result = this.resolveAction(action);
-        // if (result === false) {
-        //     console.log("WARNING: NPC " + this.name + "'s actions resolved to FALSE");
-        // }
+
+        if (result === false && action.constructor.name === "MoveAction") {
+            this.path = [];
+            console.log("failed a move, cleared path");
+        }
+
+
         return result;
     }
 

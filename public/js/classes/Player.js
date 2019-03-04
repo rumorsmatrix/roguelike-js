@@ -9,14 +9,33 @@ class Player extends Entity {
         super();
         this.tile = game.tile_library['player'];
         this.speed = 1;
-        this.name = ROT.RNG.getItem(game.grammar.male_names) + " " + ROT.RNG.getItem(game.grammar.surnames);
+
+
+        // create party
+        this.party = [];
+        this.party_size = 4;
+
+        for (let i = 0; i < this.party_size; i++) {
+            let new_combat_entity = new CombatEntity({
+                name: ROT.RNG.getItem(game.grammar.male_names) + " " + ROT.RNG.getItem(game.grammar.surnames),
+            });
+            new_combat_entity.job = new FighterJob(new_combat_entity);
+            new_combat_entity.job.applyInitialStats();
+            this.party.push(new_combat_entity);
+        }
 
         // assign mixins
         this.addMixin('Move');
         this.addMixin('CanUseDoors');
+        this.addMixin('CanPickupCoin');
 
         // update some UI
-        document.getElementById("player_name").innerHTML = this.name;
+        let party_names = "";
+        for (let i = 0; i < this.party.length; i++) {
+            party_names = party_names + this.party[i].name + "<br>";
+        }
+
+        document.getElementById("player_name").innerHTML = party_names;
 
         // pick a room to start in
         this.start_room = game.map.get_random_room();
@@ -27,18 +46,17 @@ class Player extends Entity {
         game.map.entity_list.push(this);
         game.scheduler.add(this, true);
 
-        this.handleEvent();
     }
 
     act()
     {
+        // console.log("starting player turn");
         game.engine.lock();
         window.addEventListener("keydown", this);
     }
 
     handleEvent(e)
     {
-
         // todo: or rather maybe do:
         //  if (e.target === this.uid && typeof this[e.type] === 'function') this[e.type](e);
         //  OR, if you skip the e.target check, you can respond to ALL events of a type, so monsters could eg: respond
@@ -56,26 +74,16 @@ class Player extends Entity {
     }
 
     handleKeyEvent(e) {
+
+        console.log('player key handler');
+
         window.removeEventListener("keydown", this);
         let action = false;
         let movement_x = 0;
         let movement_y = 0;
 
         // find which virtual key has been pressed
-
-        // todo: e.keyCode is now deprecated
-        //  https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
-
-        //console.log('Key/New: ' + e.key + ', keyCode/Deprecated: ' + e.keyCode);
-        //console.log(e);
-
-        let virtual_key = "";
-        for (let key_name in ROT.KEYS) {
-            if (ROT.KEYS.hasOwnProperty(key_name) && ROT.KEYS[key_name] === e.key && key_name.indexOf("VK_") === 0) {
-                virtual_key = key_name;
-                break; // no need to keep looking now
-            }
-        }
+        let virtual_key = game.ui_state.getVirtualKey(e);
 
         // handle key press: https://nethackwiki.com/wiki/Commands
         switch (virtual_key) {
@@ -120,6 +128,10 @@ class Player extends Entity {
             case "VK_C":
                 game.log.write("You try to close the door but, like, you can't even.");
                 break;
+
+            case "VK_ESC":
+                game.ui_state.setState('about');
+                return false; // stops engine unlock and keypress loop
         }
 
         // handle movement

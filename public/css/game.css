@@ -25,7 +25,13 @@ body {
 
 h1, h2, h3, strong, u, a {
 	font-size: 12px;
-	color: #9bbc0f;
+	color: aqua;
+}
+
+#map_container,
+#log_container,
+#sidebar_container {
+	visibility: hidden;
 }
 
 #game_container {
@@ -37,20 +43,11 @@ h1, h2, h3, strong, u, a {
 	box-shadow: 0 0 4px #000;
 }
 
-#header_container {
-	height: 24px;
-	background: #999;
-	color: #111;
-	line-height: 24px;
-	padding-left: 0.5rem;
-	border-bottom: 1px solid #bbb;
-}
-
 #log_container {
 	background: #111;
 	color: #ddd;
 	font-size: 10px;
-	height: 98px;
+	height: 118px;
 	margin: -3px 0 0;
 	border-top: 1px solid #bbb;
 	padding: 0.4rem 0.2rem 0.2rem;
@@ -85,20 +82,45 @@ h1, h2, h3, strong, u, a {
 
 #subscreen_container {
 	width: 898px;
-	height: 573px;
+	height: 596px;
 	position: absolute;
-	margin-top: 25px;
+	margin-top: 1px;
 	z-index: 2;
 	background: #222;
 	opacity: 0.95;
 	padding: 32px;
-	color: #999;
+	color: #ccc;
 	visibility: hidden;
 }
 
-#subscreen_about {
+#subscreen_container table {
+	width: 100%;
+}
+
+#subscreen_container td {
+	padding-right: 0.4rem;
+}
+
+
+#subscreen_title,
+#subscreen_about
+{
 	visibility: hidden;
 }
+
+#subscreen_title_content {
+	width: 830px;
+	height: 6rem;
+	position: absolute;
+	margin-top: 400px;
+	padding: 1.2rem 1rem;
+	z-index: 3;
+	background: #000;
+	opacity: 0.7;
+	color: deepskyblue;
+	text-align: center;
+}
+
 
 #subscreen_about_content{
 	width: 20rem;
@@ -116,7 +138,7 @@ h1, h2, h3, strong, u, a {
 }
 
 .ascii_art {
-	margin: 0px 0 0 0px;
+	margin: 0;
 	width: 210px;
 	font-size: 8px;
 	letter-spacing: 3px;
@@ -125,13 +147,32 @@ h1, h2, h3, strong, u, a {
 }
 
 
-#rumorsmatrix_ascii_art_container {
+#crystal_ascii_art_container {
 	width: 898px;
-	height: 573px;
+	height: 596px;
 	overflow: hidden;
 	position: absolute;
 	top: 0;
 	left: 0;
-	font-size: 22px !important;
 	background: #000;
+}
+
+#crystal_ascii_art_container pre {
+	font-size: 6px !important;
+	line-height: 10px;
+	margin-left: -330px;
+}
+
+#rumorsmatrix_ascii_art_container {
+	width: 898px;
+	height: 596px;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #000;
+}
+
+.currency_gold {
+	color: #FFD700;
 }

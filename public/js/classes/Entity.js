@@ -4,6 +4,7 @@ class Entity {
     {
 		this.mixins = {};
 		this.speed = 1; // must have a speed for the scheduler
+
 	}
 
 	getSpeed()
