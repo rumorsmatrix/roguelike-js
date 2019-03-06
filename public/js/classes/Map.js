@@ -45,13 +45,24 @@ class Map {
 
 			let new_tile = null;
 			if (value === 0) {
-				new_tile = game.tile_library['floor'];
+				 new_tile = new Tile(
+					game.tile_library['floor'].glyph,
+					game.tile_library['floor'].fg_color,
+					ROT.Color.toHex(
+						ROT.Color.interpolate(
+							ROT.Color.fromString(game.tile_library['floor'].bg_color), [10, 50, 50], Math.random()
+						)
+					),
+					game.tile_library['floor'].passable,
+					game.tile_library['floor'].light_passes,
+				);
+				game.map.empty_tile_list.push([x,y]);
+
 			} else {
 				new_tile = game.tile_library['wall'];
 			}
-			game.map.tile_map[x][y] = new_tile;
 
-			if (value === 0) game.map.empty_tile_list.push([x,y]);
+			game.map.tile_map[x][y] = new_tile;
 		});
 
 		this.rooms = [];
@@ -60,13 +71,7 @@ class Map {
 
 			let doors = [];
 			rooms[i].getDoors(function(x, y) {
-
-				// TO DO
-				// not every "door" should have an actual door, make this randomised
-				// still record that this is a door position -- for pathfinding -- but also store
-				// a flag to state if an actual door is present...
 				doors.push([x, y]);
-
 				let new_door_tile = ROT.RNG.getWeightedValue({
 					"door_closed": 20,
 					"door_open": 30,
@@ -74,7 +79,6 @@ class Map {
 				});
 				game.map.tile_map[x][y] = game.tile_library[new_door_tile];
 				game.map.removeTileFromEmptyList(x, y);
-
 			});
 
 			this.rooms.push({
@@ -89,7 +93,7 @@ class Map {
 
 
 		// water tiles
-		for (let i = 0; i < 10; i++) {
+		for (let i = 0; i < 5; i++) {
 			let water_tile = ROT.RNG.getItem(this.empty_tile_list);
 			game.map.tile_map[water_tile[0]][water_tile[1]] = game.tile_library['water'];
 			game.map.removeTileFromEmptyList(water_tile[0], water_tile[1]);
@@ -100,13 +104,13 @@ class Map {
 
 
 		// coins
-		for (let i = 0; i < 200; i++) {
+		for (let i = 0; i < 10; i++) {
 			let pos = ROT.RNG.getItem(this.empty_tile_list);
 			this.entity_map[pos[0]][pos[1]].push( { tile: game.tile_library['coin'], amount: ROT.RNG.getItem([1,1,1,2,2,3]) } );
 		}
 
 		// add entities to the map
-		for (let r = 0; r < 50; r++) {
+		for (let r = 0; r < 5; r++) {
 			let rat = new NPC();
 			let position = ROT.RNG.getItem(this.empty_tile_list);
 			rat.name = "Rat " + r.toString();
