@@ -13,7 +13,7 @@ class Map {
 		this.empty_tile_list = [];
 
 		this.entity_list = [];
-		this.entity_map = this.construct_2d_array(width, height);
+		this.entity_map = this.construct_2d_array(width, height, '[]');
 
 	}
 
@@ -25,7 +25,13 @@ class Map {
 		for (let i=0; i< height; i++) {
 			new_array[i] = [];
 			for (let j=0; j< width; j++) {
-				new_array[i][j] = default_value;
+
+				if (default_value === "[]") {
+					new_array[i][j] = [];
+				} else {
+					new_array[i][j] = default_value;
+				}
+
 			}
 		}
 		return new_array;
@@ -82,22 +88,32 @@ class Map {
 		}
 
 
-		// add items, pickups etc
-		for (let i = 0; i < 20; i++) {
-			let pos = ROT.RNG.getItem(this.empty_tile_list);
-			this.entity_map[pos[0]][pos[1]] = { tile: game.tile_library['coin'], amount: ROT.RNG.getItem([1,1,1,2,2,3]) };
+		// water tiles
+		for (let i = 0; i < 10; i++) {
+			let water_tile = ROT.RNG.getItem(this.empty_tile_list);
+			game.map.tile_map[water_tile[0]][water_tile[1]] = game.tile_library['water'];
+			game.map.removeTileFromEmptyList(water_tile[0], water_tile[1]);
 		}
 
 
+		// add entities: NPCs, items, pickups etc
+
+
+		// coins
+		for (let i = 0; i < 200; i++) {
+			let pos = ROT.RNG.getItem(this.empty_tile_list);
+			this.entity_map[pos[0]][pos[1]].push( { tile: game.tile_library['coin'], amount: ROT.RNG.getItem([1,1,1,2,2,3]) } );
+		}
+
 		// add entities to the map
-		for (let r = 0; r < 15; r++) {
+		for (let r = 0; r < 50; r++) {
 			let rat = new NPC();
 			let position = ROT.RNG.getItem(this.empty_tile_list);
 			rat.name = "Rat " + r.toString();
 			rat.tile = game.tile_library['rat'];
 			rat.pos_x = position[0];
 			rat.pos_y = position[1];
-			this.entity_map[rat.pos_x][rat.pos_y] = rat;
+			this.entity_map[rat.pos_x][rat.pos_y].push(rat);
 			this.entity_list.push(rat);
 		}
 
@@ -114,11 +130,15 @@ class Map {
 	{
 		let tile = this.tile_map[x][y];
 		let bg_color = tile.bg_color;
-		let entity = this.entity_map[x][y];
-		tile.entity = entity;
-		if (entity !== null) {
-			tile = entity.tile;
+		let entities = this.entity_map[x][y];
+
+		// entity_map is an array now...
+		tile.entities = entities;
+
+		if (entities.length > 0) {
+			tile = entities[entities.length - 1].tile;
 			tile.bg_color = bg_color;
+			if (entities[entities.length - 1].tile.passable === false) tile.passable = false;
 		}
 		return tile;
 	}
@@ -214,6 +234,8 @@ class Map {
 				// }
 
 				let tile = game.map.getTile(x, y);
+
+				//console.log(tile);
 
 				// draw the resulting tile
 				game.display.draw(

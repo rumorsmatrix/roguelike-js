@@ -4,6 +4,8 @@ class Entity {
     {
 		this.mixins = {};
 		this.speed = 1; // must have a speed for the scheduler
+		this.pos_x = 0;
+		this.pos_y = 0;
 
 	}
 

@@ -1,9 +1,5 @@
 class Player extends Entity {
 
-    // todo: what does a "Player" object represent if the player is a Party of characters? Hmmm.
-    //  I think it's the "@" and it's location, and should have Characters attatched to it. It's basically the
-    //  party AND the characters all lumped in together...
-
     constructor()
     {
         super();

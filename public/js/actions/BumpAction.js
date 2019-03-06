@@ -22,7 +22,7 @@ class BumpAction extends Action {
                 break;
 
             case "$":
-                // todo: rewrite coin pickup to be a type of bump, for consistency
+                // todo: rewrite coin pickup to be a type of bump, for consistency?
         }
 
         return false;
