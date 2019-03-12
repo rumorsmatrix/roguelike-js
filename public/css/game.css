@@ -28,10 +28,16 @@ h1, h2, h3, strong, u, a {
 	color: aqua;
 }
 
+.ui_menu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
 #map_container,
 #log_container,
 #sidebar_container {
-	visibility: hidden;
+	display: none;
 }
 
 #game_container {
@@ -86,11 +92,11 @@ h1, h2, h3, strong, u, a {
 	position: absolute;
 	margin-top: 1px;
 	z-index: 2;
-	background: #222;
-	opacity: 0.95;
+	/*background: #222;*/
+	/*opacity: 0.95;*/
 	padding: 32px;
 	color: #ccc;
-	visibility: hidden;
+	display: none;
 }
 
 #subscreen_container table {
@@ -103,9 +109,10 @@ h1, h2, h3, strong, u, a {
 
 
 #subscreen_title,
-#subscreen_about
+#subscreen_about,
+#subscreen_test_menu
 {
-	visibility: hidden;
+	display: none;
 }
 
 #subscreen_title_content {
@@ -124,12 +131,26 @@ h1, h2, h3, strong, u, a {
 
 #subscreen_about_content{
 	width: 20rem;
-	height: 511px;
+	/*height: 480px;*/
+	/*margin: 0;*/
 	position: absolute;
+	margin: 0;
+	border: 1px solid red;
 	padding: 1.2rem 1rem;
 	z-index: 3;
 	background: #000;
 	opacity: 0.9;
+}
+
+
+#subscreen_test_menu {
+	width: 240px;
+	background: #004;
+	padding: 0.8rem;
+	border: 2px solid #bbb;
+	box-shadow: 0 0 4px #000;
+	position: relative;
+	top: 330px;
 }
 
 

@@ -2,8 +2,8 @@ class Map {
 
 	constructor(width, height)
 	{
-		this.width = width;
-		this.height = height;
+		// this.width = width;
+		// this.height = height;
 
 		this.center_x = (width / 2);
 		this.center_y = (height / 2);
@@ -50,7 +50,7 @@ class Map {
 					game.tile_library['floor'].fg_color,
 					ROT.Color.toHex(
 						ROT.Color.interpolate(
-							ROT.Color.fromString(game.tile_library['floor'].bg_color), [10, 50, 50], Math.random()
+							ROT.Color.fromString(game.tile_library['floor'].bg_color), [50, 50, 50], Math.random()
 						)
 					),
 					game.tile_library['floor'].passable,
@@ -91,17 +91,15 @@ class Map {
 			});
 		}
 
-
 		// water tiles
-		for (let i = 0; i < 5; i++) {
-			let water_tile = ROT.RNG.getItem(this.empty_tile_list);
-			game.map.tile_map[water_tile[0]][water_tile[1]] = game.tile_library['water'];
-			game.map.removeTileFromEmptyList(water_tile[0], water_tile[1]);
-		}
+		// for (let i = 0; i < 50; i++) {
+		// 	let water_tile = ROT.RNG.getItem(this.empty_tile_list);
+		// 	game.map.tile_map[water_tile[0]][water_tile[1]] = game.tile_library['water'];
+		// 	game.map.removeTileFromEmptyList(water_tile[0], water_tile[1]);
+		// }
 
 
 		// add entities: NPCs, items, pickups etc
-
 
 		// coins
 		for (let i = 0; i < 10; i++) {

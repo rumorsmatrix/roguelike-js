@@ -3,6 +3,21 @@ class UIStateManager {
     constructor()
     {
         this.state = 'explore';
+        this.UIHandlers = {
+            'test_menu': new UIMenu({
+                'container': 'subscreen_test_menu',
+                'items': ['Item One', 'Item Two', 'Item Three'],
+                'handleSelected': function(index) {
+                    if (index === -1) {
+                        game.ui_state.unsetState('test_menu');
+                        return true;
+                    }
+
+                    game.log.write("You selected index [" + index + "]: " + this.items[index] );
+                    return true;
+                }
+            }),
+        };
     }
 
 
@@ -10,28 +25,29 @@ class UIStateManager {
     {
         this.state = state;
         window.removeEventListener('keydown', game.player);
+        // noinspection JSUnresolvedFunction
         window.addEventListener('keydown', this);
-        document.getElementById('subscreen_' + state).style.visibility = 'visible';
+        document.getElementById('subscreen_container').style.display = 'block';
+        document.getElementById('subscreen_' + state).style.display = 'block';
     }
 
 
     unsetState()
     {
         console.log("UNSET STATE: " + this.state);
-        console.log(this);
-        document.getElementById('map_container').style.visibility = 'visible';
-        document.getElementById('log_container').style.visibility = 'visible';
-        document.getElementById('sidebar_container').style.visibility = 'visible';
 
-        document.getElementById('subscreen_' + this.state).style.visibility = 'hidden';
+        document.getElementById('map_container').style.display = 'block';
+        document.getElementById('log_container').style.display = 'block';
+        document.getElementById('sidebar_container').style.display = 'block';
+        document.getElementById('subscreen_container').style.display = 'none';
+        document.getElementById('subscreen_' + this.state).style.display = 'none';
         window.removeEventListener('keydown', game.ui_state);
         window.addEventListener('keydown', game.player);
         this.state = 'explore';
-
-        console.log('end of unset state');
     }
 
 
+    // noinspection JSMethodCanBeStatic -- just because it can doesn't mean it should
     getVirtualKey(e)
     {
         let virtual_key = "";
@@ -45,16 +61,22 @@ class UIStateManager {
     }
 
 
+    // noinspection JSUnusedGlobalSymbols -- handleEvent is obviously called at runtime
     handleEvent(e)
     {
         console.log("ui state handled key press");
         e.stopPropagation();
 
+        if (this.UIHandlers[this.state] !== undefined) {
+            return this.UIHandlers[this.state].handleKeyEvent(this.getVirtualKey(e));
+        }
+
+
+        // todo: these hardcoded states need turning into objects
         if (this.state === 'title') {
             this.unsetState();
             return true;
         }
-
 
         if (this.state === 'about') {
             switch (this.getVirtualKey(e)) {

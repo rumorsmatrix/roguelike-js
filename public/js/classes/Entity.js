@@ -1,17 +1,18 @@
 class Entity {
 
 	constructor()
-    {
+	{
 		this.mixins = {};
 		this.speed = 1; // must have a speed for the scheduler
-		this.pos_x = 0;
+		this.pos_x = 0; // sanity check: if this thing doesn't have a position, is it really an entity?
 		this.pos_y = 0;
 
 	}
 
+
 	getSpeed()
 	{
-		return this.speed;
+		return this.speed; // required for the scheduler
 	}
 
 
@@ -26,7 +27,7 @@ class Entity {
 
 
 	getAdjacentTiles()
-    {
+	{
 		let adjacent_tiles = [];
 		for (let t of [
 			[0, -1], // n
@@ -45,7 +46,7 @@ class Entity {
 		return adjacent_tiles;
 	}
 
-	// todo: refactor this a bit
+
 	addMixin(mixin)
 	{
 		if (this.mixins[mixin] === undefined) {
@@ -64,12 +65,14 @@ class Entity {
 		}
 	}
 
+
 	removeMixin(mixin)
 	{
 		if (typeof this['on' + mixin + 'Remove'] === "function") this['on' + mixin + 'Remove']();
 		this.mixins[mixin] = false;
 		return true;
 	}
+
 
 	hasMixin(mixin)
 	{

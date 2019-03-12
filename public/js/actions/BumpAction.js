@@ -12,7 +12,7 @@ class BumpAction extends Action {
     execute()
     {
         // figure out what we've bumped into and what the context-sensitive result should be
-        let bumped_tile = game.map.tile_map[this.x][this.y];
+        let bumped_tile = game.map.getTile(this.x, this.y);
 
         switch(bumped_tile.glyph) {
 
@@ -21,8 +21,8 @@ class BumpAction extends Action {
                 return new OpenDoorAction(this.actor, this.x, this.y);
                 break;
 
-            case "$":
-                // todo: rewrite coin pickup to be a type of bump, for consistency?
+            case "≈":
+                game.log.write("Water bump...");
         }
 
         return false;

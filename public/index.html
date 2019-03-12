@@ -9,6 +9,7 @@
 <body>
 <div id="game_container">
 
+
 	<div id="subscreen_container">
 
 		<div id="subscreen_title">
@@ -18,6 +19,9 @@
 				<p>press any key to begin</p>
 			</div>
 		</div>
+
+
+		<div id="subscreen_test_menu"></div>
 
 
 		<div id="subscreen_about">
@@ -88,6 +92,7 @@
 <!-- base game objects -->
 <script src="js/classes/Log.js"></script>
 <script src="js/classes/UIStateManager.js"></script>
+<script src="js/classes/UIMenu.js"></script>
 <script src="js/classes/Game.js"></script>
 
 <!-- Command:Action design pattern -->
@@ -134,7 +139,7 @@ game.engine.start();
 game.ui_state.setState('title');
 game.ui_state.unsetState('title');
 
-
+game.ui_state.setState('test_menu');
 
 
 fetch('ascii-art/crystal.html').then(function(response) {

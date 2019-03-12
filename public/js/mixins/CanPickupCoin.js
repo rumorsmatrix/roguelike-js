@@ -4,7 +4,7 @@ game.mixins.CanPickupCoin = {
 
     onCanPickupCoinAdd()
     {
-        this.coin = 0;
+        if (this.coin === undefined) this.coin = 0;
     },
 
     onCanPickupCoinRemove()
@@ -19,10 +19,13 @@ game.mixins.CanPickupCoin = {
 
         if (coin.amount !== undefined) {
             this.coin = this.coin + coin.amount;
-            document.getElementById('ui_currency_gold').innerText = this.coin;
-            game.log.write("You collect <span class=\"currency_gold\">" + coin.amount + " gold</span>.");
-
             game.map.entity_map[x][y].splice(z, 1);
+
+            if (this.constructor.name === 'Player') {
+                document.getElementById('ui_currency_gold').innerText = this.coin;
+                game.log.write("You collect <span class=\"currency_gold\">" + coin.amount + " gold</span>.");
+            }
+
             return true;
 
         } else {

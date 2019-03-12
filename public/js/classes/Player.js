@@ -13,7 +13,7 @@ class Player extends Entity {
 
         for (let i = 0; i < this.party_size; i++) {
             let new_combat_entity = new CombatEntity({
-                name: ROT.RNG.getItem(game.grammar.male_names) + " " + ROT.RNG.getItem(game.grammar.surnames),
+                name: ROT.RNG.getItem( (Math.random() > 0.5) ? game.grammar.male_names : game.grammar.female_names ) + " " + ROT.RNG.getItem(game.grammar.surnames),
             });
             new_combat_entity.job = new FighterJob(new_combat_entity);
             new_combat_entity.job.applyInitialStats();
@@ -30,10 +30,10 @@ class Player extends Entity {
         for (let i = 0; i < this.party.length; i++) {
             party_names = party_names + this.party[i].name + "<br>";
         }
-
         document.getElementById("player_name").innerHTML = party_names;
 
         // pick a room to start in
+        // todo: this position might not actually be a free square, huh
         this.start_room = game.map.get_random_room();
         this.pos_x = this.start_room.center[0];
         this.pos_y = this.start_room.center[1];
@@ -46,18 +46,15 @@ class Player extends Entity {
 
     act()
     {
-        // console.log("starting player turn");
         game.engine.lock();
         window.addEventListener("keydown", this);
     }
 
     handleEvent(e)
     {
-        // todo: or rather maybe do:
-        //  if (e.target === this.uid && typeof this[e.type] === 'function') this[e.type](e);
+        // todo: or rather maybe do: if (e.target === this.uid && typeof this[e.type] === 'function') this[e.type](e);
         //  OR, if you skip the e.target check, you can respond to ALL events of a type, so monsters could eg: respond
         //  to seeing their kin take damage, etc
-
         if (e === undefined) {
             return false;
 
@@ -70,7 +67,6 @@ class Player extends Entity {
     }
 
     handleKeyEvent(e) {
-
         console.log('player key handler');
 
         window.removeEventListener("keydown", this);
@@ -136,7 +132,6 @@ class Player extends Entity {
             action = new MoveAction(this, movement_x, movement_y);
         }
 
-
         // move onto the next scheduled turn if our action is true
         let result = this.resolveAction(action);
 
@@ -146,5 +141,6 @@ class Player extends Entity {
         } else {
             window.addEventListener("keydown", this);
         }
+
     }
 }

@@ -28,13 +28,18 @@ format: yyyy-mm-dd. Maybe one day there will be version numbers. For now conside
 [-] Fishing minigame (the most important feature)
 
 
+## Week commencing 2019-03-11
+----------------------------------------------------------------------------------------------------
+[+] UIMenu and UIStateManager can now create menus with arrow key / number key / escape controls
+[-] Rewrote "subscreen" CSS and UIStateManager to handle non-fullscreen UI overlays
+
 
 ## Week commencing 2019-03-04
 ----------------------------------------------------------------------------------------------------
 [!] Coins no longer block movement for Entities without the CanPickupCoins mixin
 [+] Entities can now be in a stack on a tile, so rats can occupy the same tile as coins
-[+] A small number of water tiles are now generated 
-
+[+] A small number of water tiles are now generated
+[+] Floor tiles now have a randomised mottling effect to break up blocks of colour, looks quite nice
 
 
 ## Week commencing 2019-02-25

@@ -8,7 +8,6 @@ class Tile {
 
         this.passable = passable;
         this.light_passes = light_passes;
-
     }
 
 }

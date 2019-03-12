@@ -16,6 +16,7 @@ game.tile_library['wall']           = new Tile("#", '#666', '#111', false, false
 
 // water
 game.tile_library['water']          = new Tile("≈", '#99f', '#336', false, true);
+game.tile_library['water']          = new Tile("≈", '#99f', '#336', false, true);
 
 // doors
 game.tile_library['door_closed']    = new Tile("+", '#bbb', '#111', false, false);
