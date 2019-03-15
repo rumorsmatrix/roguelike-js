@@ -14,27 +14,28 @@ format: yyyy-mm-dd. Maybe one day there will be version numbers. For now conside
 
 
 
-## r/roguelikedev Sharing Satuday posts
+### r/roguelikedev Sharing Satuday posts
 ----------------------------------------------------------------------------------------------------
 [2019-03-02] https://www.reddit.com/r/roguelikedev/comments/awbi3e/sharing_saturday_248/ehmq2o8/
 
 
 
-## TO DO / COMING SOON (probably) / THINGS TO REMEMBER
+### TO DO / COMING SOON (probably) / THINGS TO REMEMBER
 ----------------------------------------------------------------------------------------------------
 [-] Entity type flag -- done but needs populating
+[-] UIMenu needs the ability to hook into a child node of its actual container
 [-] Doors should probably be entities instead of tiles
 [-] Per-entity getTile() implementation for better pathfinding
 [-] Fishing minigame (the most important feature)
 
 
-## Week commencing 2019-03-11
+### Week commencing 2019-03-11
 ----------------------------------------------------------------------------------------------------
 [+] UIMenu and UIStateManager can now create menus with arrow key / number key / escape controls
 [-] Rewrote "subscreen" CSS and UIStateManager to handle non-fullscreen UI overlays
 
 
-## Week commencing 2019-03-04
+### Week commencing 2019-03-04
 ----------------------------------------------------------------------------------------------------
 [!] Coins no longer block movement for Entities without the CanPickupCoins mixin
 [+] Entities can now be in a stack on a tile, so rats can occupy the same tile as coins
@@ -42,7 +43,7 @@ format: yyyy-mm-dd. Maybe one day there will be version numbers. For now conside
 [+] Floor tiles now have a randomised mottling effect to break up blocks of colour, looks quite nice
 
 
-## Week commencing 2019-02-25
+### Week commencing 2019-02-25
 ----------------------------------------------------------------------------------------------------
 https://www.reddit.com/r/roguelikedev/comments/awbi3e/sharing_saturday_248/ehmq2o8/
 

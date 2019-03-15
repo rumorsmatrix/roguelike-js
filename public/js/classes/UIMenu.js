@@ -75,6 +75,9 @@ class UIMenu {
                 break;
 
             case "VK_ENTER":
+		this.handleSelected(this.selected_index);
+		break;
+
             case "VK_ESC":
                 this.handleSelected(-1);
                 break;

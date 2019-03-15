@@ -6,7 +6,7 @@ class UIStateManager {
         this.UIHandlers = {
             'test_menu': new UIMenu({
                 'container': 'subscreen_test_menu',
-                'items': ['Item One', 'Item Two', 'Item Three'],
+                'items': ['Reticulate splines', 'Process matrices', 'De-duplicate duplicates'],
                 'handleSelected': function(index) {
                     if (index === -1) {
                         game.ui_state.unsetState('test_menu');
